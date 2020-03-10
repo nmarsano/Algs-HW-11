@@ -1,0 +1,8 @@
+This algorithm first takes k block descriptions (3 dimensions) and creates an array of all possible block configurations (3k total).
+It then sorts that array in order of biggest base-area to smallest base-area. Two arrays then get initialized of size 3k, one to store
+the tallest possible tower heights with that block (each cell in the array represents a block) as the top block, and the other to store
+strings of the blocks actually used to calculate the heights in the other array in order to create the output text file.
+Then, 
+
+The run time for this algorithm is Theta(n^2) (as seen in the double for-loop at the bottom of the program file where the DPTable gets
+filled).
