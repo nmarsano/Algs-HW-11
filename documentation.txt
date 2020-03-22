@@ -2,16 +2,40 @@ This algorithm first takes k block descriptions (3 dimensions) and creates an ar
 It then sorts that array in order of biggest base-area to smallest base-area. Two arrays then get initialized of size 3k, one to store
 the tallest possible tower heights with that block (each cell in the array represents a block) as the top block, and the other to store
 strings of the blocks actually used to calculate the heights in the other array in order to create the output text file.
-Then, the algorithm proceeds through a double for loop that does the actual testing to check the stackability of blocks. It works around the concept of, given block i, what is the tallest stack you can make with that block at the very top? It also proceeds through the blocks from largest base area to smallest base area (having sorted them in the array which is then iterated through). Skipping the first block (because that block can never go on top of another block given its size), the loops check each block that comes before the given block to see if the given block can be stacked ontop of those prior blocks. Everytime it finds a block that the given block can be stacked on (and the height of the given block and the DPTable entry of the other block is smaller than the new caluclated height), it updates the DPTable with the new height of that block (taken from the DPTable at that block's index) and the current block at the index of the current block (ie the block placed on top of the stack). As the algorithm progresses, it doesn't just add the height of 2 blocks together over and over, but rather takes the height of the tallest stack possible of each block + the current block's height that is stackable on top of that already made stack. In parrallel with this process the other array DPTableT keeps track of which blocks compose the stacks in each cell of the DPTable. This algorithm works because a block at the front of the sorted array of blocks can never be stacked on a block that comes after it due to its base size, therefor we can streamline which blocks actually need to be compared to eachother. Also, by looking at the DPTable for the height's of blocks that can be stacked ontop of instead of the actual block's height, we can keep track of the tallest possible stack height with those blocks at the top. 
+Then, the algorithm proceeds through a double for loop that does the actual testing to check the stackability of blocks. It works around
+the concept of, given block i, what is the tallest stack you can make with that block at the very top? It also proceeds through the blocks
+from largest base area to smallest base area (having sorted them in the array which is then iterated through). Skipping the first block
+(because that block can never go on top of another block given its size), the loops check each block that comes before the given block to
+see if the given block can be stacked ontop of those prior blocks. Everytime it finds a block that the given block can be stacked on (and
+the height of the given block and the DPTable entry of the other block is smaller than the new caluclated height), it updates the DPTable
+with the new height of that block (taken from the DPTable at that block's index) and the current block at the index of the current block
+(ie the block placed on top of the stack). As the algorithm progresses, it doesn't just add the height of 2 blocks together over and over,
+but rather takes the height of the tallest stack possible of each block + the current block's height that is stackable on top of that
+already made stack. In parrallel with this process the other array DPTableT keeps track of which blocks compose the stacks in each cell of
+the DPTable. This algorithm works because a block at the front of the sorted array of blocks can never be stacked on a block that comes
+after it due to its base size, therefor we can streamline which blocks actually need to be compared to eachother. Also, by looking at the
+DPTable for the height's of blocks that can be stacked ontop of instead of the actual block's height, we can keep track of the tallest
+possible stack height with those blocks at the top. 
 
 The run time for this algorithm is Theta(n^2) (as seen in the double for-loop at the bottom of the program file where the DPTable gets
 filled).
 
 A design decision that I made was thus: While I was able to sort the blocks by base area size, I realized that during the double for-loop
 I couldn't do the same to check if blocks were stackable. Instead I broke down the base area into back into the two dimensions that
-composed it and compared both width to width and width to height and vice versa. If either or the comparisons showed both dimensions of one block to be less than the other, it was stackable. The problem with testing the base area in this case was that it combined these two comparisons and could say a block was not stackable when it actually may have been if rotated correctly. 
+composed it and compared both width to width and width to height and vice versa. If either or the comparisons showed both dimensions of
+one block to be less than the other, it was stackable. The problem with testing the base area in this case was that it combined these two
+comparisons and could say a block was not stackable when it actually may have been if rotated correctly. 
 
 
-My code has each of the described parts of this algorithm: a sorted array of all possible blocks and their rotations, sorted from largest base area to smallest (blocks), a for loop that actually adds all the possible block rotations to the block array in the first place, a class Block that has all 3 dimensions of the blocks as well as a string interpretation to be used in the output text file, a function returning the base area of a block to be given to the built in python sorting method, and the algorithm's double for loop that (skipping the first unstackable largest block) checks each block prior the to current block and sees if it is stackable ontop of those blocks before checking to see if the possible stack is taller than a stack already made with other prior blocks, ending with the DPTable cell holding the height of the tallest possible tower with that index block at the top (as well as the extra array that keeps track of what blocks actually make up the stack whose height is stored in the DPTable array).
+My code has each of the described parts of this algorithm: a sorted array of all possible blocks and their rotations, sorted from largest
+base area to smallest (blocks), a for loop that actually adds all the possible block rotations to the block array in the first place, a
+class Block that has all 3 dimensions of the blocks as well as a string interpretation to be used in the output text file, a function
+returning the base area of a block to be given to the built in python sorting method, and the algorithm's double for loop that (skipping
+the first unstackable largest block) checks each block prior the to current block and sees if it is stackable ontop of those blocks before
+checking to see if the possible stack is taller than a stack already made with other prior blocks, ending with the DPTable cell holding
+the height of the tallest possible tower with that index block at the top (as well as the extra array that keeps track of what blocks
+actually make up the stack whose height is stored in the DPTable array).
 
-I tested this code with the example given in the assignment as well as with random and impossible block dimensions such as 0's and negative numbers. In those cases with impossible blocks the code disscounted them as being part of the block pool. Attached is another document with sample tests and results.
+I tested this code with the example given in the assignment as well as with random blocks and impossible block dimensions such as 0's and
+negative numbers. In those cases with impossible blocks the code disscounted them as being part of the block pool. Attached is another
+document with sample tests and results.
