@@ -1,1 +1,53 @@
-hi
+Format of Doc: Input file contents, output file contents, printed out statement
+
+4
+1 2 6
+4 5 6
+9 7 2
+7 6 9
+
+5
+9 7 6
+7 6 9
+5 6 4
+4 5 6
+1 2 6
+The tallest tower has 5 blocks and a height of 31.
+
+8
+4 2 6
+5 5 5
+9 6 47
+7 8 12
+3 4 99
+7 6 42
+23 54 87
+123 987 2
+
+2
+123 987 2
+2 123 987
+The tallest tower has 2 blocks and a height of 989.
+
+7
+4 2 6
+5 5 5
+9 6 47
+7 8 12
+3 4 99
+7 6 42
+23 54 87
+
+8
+54 87 23
+23 54 87
+47 9 6
+8 12 7
+7 8 12
+7 6 42
+5 5 5
+3 4 99
+The tallest tower has 8 blocks and a height of 281.
+
+ETC. 
+All of these stacks have the height of width of consecutive blocks being smaller than prior blocks. So the correctness there is shown. 
